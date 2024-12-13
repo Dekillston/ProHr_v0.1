@@ -1,0 +1,240 @@
+<style>
+@font-face {
+    font-family: Montserrat;
+    src: url('../menu/Montserrat-Regular.ttf');
+}
+.menu {
+    width: 100%;
+    height: 111px;
+    padding: 10px 10px 0px 10px;
+    position: fixed;
+}
+.menu .boundaries {
+    backdrop-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.70);
+    display: flex;
+}
+
+
+
+
+
+.menu .boundaries .left {
+    height: 100%;
+    min-width: 340px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+.menu .boundaries .left .name {
+    margin-left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Goddog;
+    color: white;
+}
+.menu .boundaries .left .name div:first-child {
+    font-size: 45px;
+}
+.menu .boundaries .left .name div:last-child {
+    font-size: 21px;
+}
+.menu .boundaries .left .logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.menu .boundaries .left .logo .l {
+    margin-left: 30px;
+    height: 80%;
+}
+.menu .boundaries .left .logo .l .im {
+    position: absolute;
+    top: 22%;
+    left: 22%;
+    width: 70%;
+    height: 70%;
+    z-index: 1;
+    background: url('../logo/logo.svg') center;
+    background-size: 100% auto;
+}
+
+
+
+
+.menu .boundaries .center {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    z-index: 100;
+}
+.menu .boundaries .center .content {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.menu .boundaries .center .sides {
+    background-color: #4e4e4e;
+    width: 3px;
+    height: 100%;
+    border-radius: 2px;
+}
+.menu .boundaries .center .text {
+    font-family: Montserrat;
+    color: white;
+    font-size: 36px;
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 0px 0px 20px black;
+}
+
+
+
+
+.menu .boundaries .right {
+    padding: 0px 55px 0px 55px;
+    height: 100%;
+    min-width: 320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.menu .boundaries .right button {
+    position: relative;
+    border-radius: 100%;
+    width: 56px;
+    height: 56px;
+    transition: 0.3s
+}
+.menu .boundaries .right button:hover {
+    transform: scale(1.1);
+}
+.menu .boundaries .right button:hover .selection_stroke {
+    transform: scale(1.4);
+}
+.menu .boundaries .right button .selection_stroke {
+    border-radius: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.3;
+    transition: 0.3s
+}
+.menu .boundaries .right button .contacts {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(98deg) brightness(103%) contrast(104%)
+}
+.menu .boundaries .right .w {
+    background-color: #2cb742;
+}
+.menu .boundaries .right .w .contacts {
+    background: url(./menu/whatsapp.svg) no-repeat center;
+    background-size: 65% auto;
+}
+.menu .boundaries .right .w .selection_stroke {
+    background-color: #2cb742;
+}
+.menu .boundaries .right .t {
+    background-color: #18a3e6;
+}
+.menu .boundaries .right .t .contacts {
+    background: url(./menu/telegram.svg) no-repeat;
+    background-size: 60% auto;
+    background-position: 40% 50%;
+}
+.menu .boundaries .right .t .selection_stroke {
+    background-color: #18a3e6;
+}
+
+
+
+
+
+
+
+.effect_cursor_menu {
+    border-radius: 20px;
+    filter: blur(5px);
+    z-index: 99;
+}
+
+
+@media (max-width: 999px) {
+    .menu .boundaries .center .text {
+        color: red;
+    }
+}
+
+
+</style>
+    
+<div class="menu" id="menu">
+    <div class="boundaries" id="boundaries">
+        <div class="left">
+            <div class="logo">
+                <div class="l" id="logo">
+                    <div class="logoSvg"></div>
+                </div>
+            </div>
+            <div class="name noSelect">
+                <div>ProHr</div>
+                <div>Профессия каждому</div>
+            </div>
+        </div>
+        <div class="center">
+            <div class="content">
+                <div class="sides"></div>
+                <button class="text">О нас</button>
+                <div class="sides"></div>
+                <button class="text">Кейсы</button>
+                <div class="sides"></div>
+                <button class="text">Сроки</button>
+                <div class="sides"></div>
+                <button class="text">Соискателю</button>
+                <div class="sides"></div>
+                <button class="text">Услуги</button>
+                <div class="sides"></div>
+            </div>
+        </div>
+        <div class="right">
+            <button class="t"><div class="contacts"></div><div class="selection_stroke"></div></button>
+            <button class="w"><div class="contacts"></div><div class="selection_stroke"></div></button>
+        </div>
+    </div>
+</div>
+
+<script>
+var menu = {
+    from: document.getElementById('menu'),
+    //
+    run: () => {
+        logo(menu.from.querySelector('#logo'));
+        //
+        mod.similarSizes(menu.from.querySelector('#logo'), false);
+        //
+        const effect = cursorEffect.run(menu.from.querySelector('#boundaries'), 'white', 5, 10, 0.5, 10);
+        //
+        effect[0].className = 'effect_cursor_menu';
+    },
+    //
+}
+//
+menu.run();
+</script>
+
+<p style="height: 3000px;"></p>

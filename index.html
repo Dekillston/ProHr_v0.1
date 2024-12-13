@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./index.css">
+
+    <script src="./jquery-3.7.1.js"></script>
+    <script src="./modules.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="./logo/logo.png">
+
+    <title>ProHr - Профессия каждому</title>
+</head>
+<body>
+
+<script>
+var index = {
+    run: async () => { // Запуск
+        await mod.load('body', 'loadingScreen'); // Построить экран загрузки
+        //
+        await mod.load('head', 'zero'); // Настроить css под работу
+        //
+        await mod.load('body', 'screenNormal'); // Настроить расширение экрана под работу
+        //
+        await mod.load('head', 'logo'); // Добавить лого
+        //
+        loadingScreen.load(); // Запустить блок загрузки
+        //
+        await mod.load('body', 'cursorEffect'); // Добавить эфект курсора
+        //
+        await mod.load('body', 'menu'); // Добавить меню
+        //
+        loadingScreen.loadClose(true); // Закрыть блок закгрузки
+    },
+};
+//
+index.run();
+</script>
+</body>
+</html>

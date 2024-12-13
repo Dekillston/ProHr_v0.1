@@ -1,0 +1,133 @@
+<style>
+@font-face {
+    font-family: Goddog;
+    src: url('../loadingScreen/gooddog.ttf');
+}
+
+
+.loadingScreen {
+    position: fixed;
+    top: 0px;
+    height: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--backScreen-background-color);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loadingScreen div {
+    filter: blur(3px);
+}
+.loadingScreen .loaDlogo {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+.loadingScreen .loaDlogo div {
+    transform: scale(0);
+}
+
+
+.loadingScreen .logoText {
+    transform-origin: 0 0; 
+    overflow: hidden;
+    overflow: hidden;
+    white-space: nowrap;
+    color: white;
+    text-align: center;
+    font-family: Goddog;
+}
+.loadingScreen .logoText div {
+    opacity: 0;
+}
+.loadingScreen .logoText div:first-child {
+    font-size: 0px;
+}
+.loadingScreen .logoText div:last-child {
+    font-size: 0px;
+}
+</style>
+<div class="loadingScreen" id="loadingScreen">
+    <div class="loaDlogo" id="loaDlogo">
+        <div class="logoSvg"></div>
+    </div>
+    <div class="logoText" id="logoText">
+        <div>ProHr</div>
+        <div>Профессия каждому</div>
+    </div>
+</div>
+    
+<script>
+var loadingScreen = {
+    close: [false, false], // Открыта или закрыта
+    //
+    animationTime: 1, // Секунды анимации
+    //
+    textSize: (block, mass) => { // Выдвинуть текст
+        mass.forEach(m => {
+            m.style.transition = loadingScreen.animationTime+'s';
+            m.style.filter = 'blur(0px)';
+        });
+        //
+        mass[0].style.fontSize = '40px'; mass[0].style.opacity = '1';
+        //
+        mass[1].style.fontSize = '24px'; mass[1].style.opacity = '1';
+        //
+        block.style.marginLeft = '30px';
+    },
+    //
+    generalBlock: document.getElementById('loadingScreen'), // Главный блок
+    //
+    load: () => {
+        //
+        const l = logo(loadingScreen.generalBlock.querySelector('#loaDlogo'));
+        //
+        setTimeout(() => {
+            l.forEach(c => {
+                c.style.transition = loadingScreen.animationTime+'s';
+                c.style.transform = 'scale(1)'; return;
+            });
+            //
+            const logoSvg = loadingScreen.generalBlock.querySelector('.logoSvg');
+            logoSvg.style.transition = loadingScreen.animationTime+'s';
+            logoSvg.style.transform = 'scale(1)';
+            //
+            const logoText = loadingScreen.generalBlock.querySelector('#logoText');
+            logoText.style.transition = loadingScreen.animationTime+'s';
+            //
+            setTimeout(() => {
+                loadingScreen.textSize(logoText, logoText.querySelectorAll('div'));
+                //
+                setTimeout(() => {loadingScreen.loadClose(false);}, (loadingScreen.animationTime*1000)*0.7);
+                //
+            }, (loadingScreen.animationTime*1000)*0.5);
+            //
+            setTimeout(() => {
+                loadingScreen.generalBlock.querySelectorAll('div').forEach(b => {
+                    b.style.filter = 'blur(0px)';
+                })
+            }, (loadingScreen.animationTime*1000)*0.2);
+            //
+            return;
+        });
+    },
+    //
+    loadClose: (bool) => { // Закрытие блока загрузки
+        if(bool == true) {
+            loadingScreen.close[0] = true; 
+        } else if(bool == false) {
+            loadingScreen.close[1] = true; 
+        }
+        //
+        if(loadingScreen.close[0] && loadingScreen.close[1]) {
+            loadingScreen.generalBlock.style.transition = loadingScreen.animationTime+'s';
+            loadingScreen.generalBlock.style.opacity = '0';
+            loadingScreen.generalBlock.style.pointerEvents = 'none';
+        }
+        //
+        return;
+    }
+};
+</script>

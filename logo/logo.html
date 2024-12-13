@@ -1,0 +1,69 @@
+<style>
+.logoSvg {
+    position: absolute;
+    top: 22%;
+    left: 22%;
+    width: 70%;
+    height: 70%;
+    z-index: 1;
+    background: url('../logo/logo.svg') center;
+    background-size: 100% auto;
+}
+</style>
+<script>
+function logo(logo) {
+    logo.style = 'position: relative';
+    //
+    const arrangement = ConvertPercentage([ // Настройки лого которые были взяты с ps
+        [877.68, 155.12, 202.31, '0069dc'], // Синий
+        [538.87, 583.56, 178.87, 'eca94e'], // Желтый
+        [708.28, 117.68 , 176.96, '8b3fbe'], // Фиолетовый
+        [507.5, 534.03, 549.46, 'fd6e74'], // Розовый
+        [121, 621.4, 0, 'f06b72'],
+        [45, 0, 621.31, '8b3fbe'],
+        [63.53, 124.12, 977.9, 'eca94e'],
+        [58.62, 1110.34, 694.65, 'fd6e74'],
+        [148.62, 1208.28, 522.59, '0069dc'],
+    ], 1080)
+    //
+    var logoC = []; // Добавляем все созданные кругляши
+    //
+    arrangement.forEach(c => { // Добавляем элементы
+        const circle = document.createElement('div');
+        //
+        logo.appendChild(circle)
+        //
+        logoC.push(circle)
+        //
+        return;
+    })
+    //
+    for(var n = 0; n < arrangement.length; n++) { // Проходимся по всем элементам
+        logoC[n].style.position = 'absolute';
+        //
+        logoC[n].style.borderRadius = '100%';
+        //
+        logoC[n].style.background = '#'+arrangement[n][3]; // Цвет
+        //
+        logoC[n].style.width = arrangement[n][0]+'%'; // Ширина
+        //
+        logoC[n].style.height = arrangement[n][0]+'%'; // Длинна
+        //
+        logoC[n].style.left = arrangement[n][1]+'%'; // Позиция X
+        //
+        logoC[n].style.top = arrangement[n][2]+'%'; // Позиция Y
+    }
+    //
+    function ConvertPercentage(mass, max) { // Конвертирую числа из фотошопа в %
+        for(var n = 0; n < mass.length; n++) {
+            mass[n][0] = (mass[n][0]*100)/max;
+            mass[n][1] = (mass[n][1]*100)/max;
+            mass[n][2] = (mass[n][2]*100)/max;
+        }
+        //
+        return mass;
+    }
+    //
+    return logoC;
+}
+</script>

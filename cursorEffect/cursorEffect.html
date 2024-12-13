@@ -1,0 +1,86 @@
+<style>
+/* Прототипы классов
+.cursorEffect_general {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.2s;
+}
+.cursorEffect_c {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: white;
+    border-radius: 100%;
+}*/
+</style>
+<script>
+var cursorEffect = {
+    run: (block, color, size, quantity, mul, opacity) => {
+        if(!(mod.isMouse())) {return;} // Останавливает если телефон
+        //
+        const general = cursorEffect.createGeneral('cursorEffect_general', block); // Создать главный блок
+        //
+        const cursorMass = cursorEffect.createCursor(general, color, quantity, size, mul, opacity) // Сбор всех блоков
+        //
+        block.addEventListener('mousemove', function(e) {
+            var xy = {
+                x: (e.pageX - block.offsetLeft)-window.scrollX,
+                y: (e.pageY - block.offsetTop)-window.scrollY
+            }
+            //
+            for(var q = 1; q <= quantity; q++) {
+                const sizeq = (size*q);
+                //
+                const mulq = sizeq*mul*q;
+                //
+                cursorMass[q-1].style.left = (xy.x-(sizeq+mulq)/2)+'px';
+                cursorMass[q-1].style.top = (xy.y-(sizeq+mulq)/2)+'px';
+            }
+            //
+            return;
+        });
+        //
+        block.addEventListener('mouseover', function () { // Появляется когда входи
+            general.style.opacity = 1;
+        })
+        block.addEventListener('mouseout', function () { // Исчезает когда выходит
+            general.style.opacity = 0;
+        })
+        // 
+        return [general, cursorMass];
+    },
+    //
+    createCursor: (general, color, quantity, size, mul, opacity) => {
+        var cursorMass = []; // Сбор всех блоков
+        //
+        for(var q = 1; q <= quantity; q++) {
+            // Создать блок
+            var c = document.createElement('div'); c.style = 'position: absolute;top: 0px;left: 0px;background-color: '+color+';border-radius: 100%;';
+            //
+            const sizeq = (size*q);
+            //
+            const mulq = sizeq*mul*q;
+            //
+            c.style.width = sizeq+mulq+'px'; // Поставить ширину
+            c.style.height = sizeq+mulq+'px'; // Поставить длинну
+            c.style.opacity = (opacity/q)+'%'; // Поставить прозрачность (BETA)
+            general.prepend(c);
+            //
+            cursorMass.push(c)
+        }
+        //
+        return cursorMass;
+    },
+    //
+    createGeneral: (className, block) => { // Создать главный блок
+        const general = document.createElement('div'); 
+        general.style = 'position: absolute;top: 0px;left: 0px;width: 100%;height: 100%;overflow: hidden;transition: 0.2s; opacity: 0;'; 
+        block.prepend(general);
+        return general;
+    }
+}
+</script>

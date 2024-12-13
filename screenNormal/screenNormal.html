@@ -1,0 +1,45 @@
+<script>
+// css zoom никак не изменен на неподдерживаемых устройств
+var screenNormal = {
+    width: 1920, // Крайнее значение
+    //
+    widthAdapted: 1000,
+    //
+    checkZoom: (block) => {return block.getBoundingClientRect().width}, // Получить ширину
+    //
+    run: () => { // Запуск
+        (() => {
+            // Создать блок
+            const block = document.createElement("div");  block.style = 'position: fixed; width: 10px; height: 0px; visibility: hidden;'; document.body.appendChild(block);
+            //
+            const initial = screenNormal.checkZoom(block); // Сохранить ширину блока
+            //
+            block.style.zoom = '200%'; // Увеличить ширину
+            //
+            if(screenNormal.checkZoom(block) !== initial) { // Проверка, сработал и zoom
+                screenNormal.checkZoom = true; // Если да
+            } else {
+                screenNormal.checkZoom = false; // Если нет
+            }
+            //
+            document.body.removeChild(block); // Удаляем блок
+        })();
+        //
+        mod.resize((d) => { // Вызов функции при изменении ширины экрана
+            //
+            var interest = 100; // Создать проценты
+            //
+            if(d.width > screenNormal.width || d.width >= screenNormal.widthAdapted) {
+                interest = (100*d.width)/screenNormal.width // Адаптиовать проценты
+            }
+            //
+            if(true) {//screenNormal.checkZoom) {
+                document.body.style.zoom = interest+'%'; // Поставить проценты
+            } else {
+                //
+            }
+            //
+        }); return;
+    }
+}; screenNormal.run();
+</script>
